@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/konva@9.3.14/konva.min.js"></script>
+    <meta charset="utf-8" />
+    <title>Konva Complex Drag and Drop Bounds Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      // konva 
+      // 限制拖动范围示例
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+
+      var stage = new Konva.Stage({
+        container: "container",
+        width: width,
+        height: height,
+      });
+
+      var layer = new Konva.Layer();
+
+      var blueGroup = new Konva.Group({
+        x: 30,
+        y: 70,
+        draggable: true,
+        stroke: "grey",
+        strokeWidth: 1,
+        dash: [2, 2],
+      });
+
+      var blueGroupBox = new Konva.Rect({
+        x: 30,
+        y: 50,
+        width: 1000,
+        height: 500,
+        draggable: true,
+        stroke: "grey",
+        strokeWidth: 1,
+        dash: [2, 2],
+      });
+
+      var blueText = new Konva.Text({
+        fontSize: 26,
+        fontFamily: "Calibri",
+        text: "bound below",
+        fill: "black",
+        padding: 10,
+      });
+
+      const blueTextWidth = blueText.width();
+      const blueTextHeight = blueText.height();
+
+      var blueRect = new Konva.Rect({
+        width: blueTextWidth,
+        height: blueTextHeight,
+        fill: "#aaf",
+        stroke: "black",
+        strokeWidth: 4,
+      });
+
+      blueGroup.on("dragmove", () => {
+        // top
+        blueGroup.y(Math.max(blueGroup.y(), 50));
+        // left
+        blueGroup.x(Math.max(blueGroup.x(), 30));
+        // buttom
+        blueGroup.y(Math.min(blueGroup.y(), 550 - blueTextHeight));
+        // right
+        blueGroup.x(Math.min(blueGroup.x(), 1030 - blueTextWidth));
+      });
+
+      blueGroup.add(blueRect).add(blueText);
+      layer.add(blueGroupBox);
+      layer.add(blueGroup);
+
+      stage.add(layer);
+    </script>
+  </body>
+</html>
