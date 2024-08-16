@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/konva@9.3.14/konva.min.js"></script>
+    <meta charset="utf-8" />
+    <title>Konva Complex Drag and Drop Bounds Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      const pageDeactivated = (callback, timeout = 15, immediate = false) => {
+        let pageTimer;
+        let beginTime = 0;
+
+        const onStartTimer = () => {
+          const currentTime = Date.now();
+          if (pageTimer && currentTime - beginTime < 100) {
+            return;
+          }
+
+          onClearTimer();
+
+          beginTime = currentTime;
+          pageTimer = setTimeout(() => {
+            callback();
+          }, timeout * 1000);
+        };
+
+        const onClearTimer = () => {
+          pageTimer && clearTimeout(pageTimer);
+          pageTimer = undefined;
+        };
+
+        const onStartDeactivated = () => {
+          onStartTimer();
+          document.addEventListener("mousedown", onStartTimer);
+          document.addEventListener("mousemove", onStartTimer);
+        };
+
+        const onStopDeactivated = () => {
+          onClearTimer();
+          document.removeEventListener("mousedown", onStartTimer);
+          document.removeEventListener("mousemove", onStartTimer);
+        };
+
+        if (immediate) {
+          onStartDeactivated();
+        }
+
+        return {
+          onStartDeactivated,
+          onStopDeactivated,
+          onClearTimer,
+        };
+      };
+      const obj = pageDeactivated(
+        () => {
+          alert("out");
+        },
+        5,
+        true
+      );
+    </script>
+  </body>
+</html>
