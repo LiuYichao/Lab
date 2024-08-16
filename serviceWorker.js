@@ -138,13 +138,31 @@ class AppServiceWorker {
     }
   }
 
+  async autoLogout() {
+    const autoLogoutStock = new zmq.Push();
+    await autoLogoutStock.bind("tcp://127.0.0.1:10005");
+
+    const pushData = {
+      head: {
+        msgName: "AutoLogout",
+        from: "ReportApp",
+        to: "GuideApp",
+        timestamp: new Date().getTime(),
+      },
+      data: {},
+    };
+    await autoLogoutStock.send(JSON.stringify(pushData));
+
+    autoLogoutStock.close();
+  }
+
   sendToProcess(ipcKey, data) {
     this.mainWindow.webContents.send(ipcKey, JSON.stringify(data));
   }
 }
 const serviceWorker = new AppServiceWorker();
-serviceWorker.healthCheckStart();
+serviceWorker.autoLogout();
 
-setTimeout(() => {
-  serviceWorker.healthCheckStop();
-}, 10000);
+// setTimeout(() => {
+//   serviceWorker.healthCheckStop();
+// }, 10000);
