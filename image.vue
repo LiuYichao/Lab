@@ -2,6 +2,7 @@
   <div>
     <div id="container"></div>
     <div id="hiContainer"></div>
+    <input name="text" id="text" @focus="last" ref="textInput" />
     <div id="buttons">
       <button id="save" v-on:click="down">Save as image</button>
     </div>
@@ -33,6 +34,26 @@ export default {
     // this.drawC();
   },
   methods: {
+    last(event) {
+      // this.$refs.textInput.focus();
+      // // eslint-disable-next-line no-console
+      // console.log(event);
+      // // eslint-disable-next-line no-console
+      // console.log(event.target.value);
+      const v = event.target.value;
+      const sP = v.length;
+      this.$nextTick(() => {
+        event.target.value = "";
+        event.target.value = v;
+        event.target.focus();
+        event.target.setSelectionRange(sP-1, sP);
+      });
+
+      // // eslint-disable-next-line no-console
+      // console.log(sP);
+
+      // event.target.setSelectionRange(sP, sP+1)
+    },
     draw() {
       // 限制拖动范围示例
       var width = window.innerWidth;
@@ -133,7 +154,7 @@ export default {
       this.drawC(dataURL).then((es) => {
         // const dataURL2 = this.stage2.toDataURL();
         this.s = es;
-        this.downloadURI(es, "sdaf.jpg")
+        this.downloadURI(es, "sdaf.jpg");
       });
     },
     downloadURI(uri, name) {
@@ -146,7 +167,7 @@ export default {
       // delete link;
     },
     drawC(dataURL) {
-     const stage2 = new Konva.Stage({
+      const stage2 = new Konva.Stage({
         container: "hiContainer",
         width: 438,
         height: 300,
@@ -159,10 +180,10 @@ export default {
       const point = new Konva.Circle({
         x: 30,
         y: 30,
-        fill: 'red',
-        stroke: 'black',
+        fill: "red",
+        stroke: "black",
         strokeWidth: 4,
-        radius: 50
+        radius: 50,
       });
 
       return new Promise((resolve, reject) => {
@@ -178,7 +199,7 @@ export default {
             layer.add(img);
             layer.add(point);
             layer.batchDraw();
-            const s = stage2.toDataURL()
+            const s = stage2.toDataURL();
             resolve(s);
           };
           imageObj.src = dataURL;
@@ -199,14 +220,14 @@ export default {
 
       const layer = new Konva.Layer();
       this.stage.add(layer);
-      const point = new Konva.Circle({
-        x: 30,
-        y: 30,
-        fill: 'red',
-        stroke: 'black',
-        strokeWidth: 4,
-        radius: 10
-      });
+      // const point = new Konva.Circle({
+      //   x: 30,
+      //   y: 30,
+      //   fill: 'red',
+      //   stroke: 'black',
+      //   strokeWidth: 4,
+      //   radius: 10
+      // });
       const imageObj = new Image();
       imageObj.onload = () => {
         const img = new Konva.Image({
@@ -217,7 +238,7 @@ export default {
           height: 768,
         });
         layer.add(img);
-        layer.add(point);
+        // layer.add(point);
       };
 
       imageObj.src = "../darth-vader.jpg";
