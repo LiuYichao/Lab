@@ -1,0 +1,56 @@
+├─ src
+|   ├─ assets
+|   |    ├─ fonts
+|   |    |    └─ *.ttf // 字体文件
+|   |    ├─ img
+|   |    |    └─ *.png // 图片文件
+|   |    ├─ common.css // 通用CSS类文件
+|   |    └─ style.scss // 字体CSS声明文件
+|   ├─ common
+|   |    └─ *.js // 通用类文件
+|   ├─ components // 组件
+|   |    ├─ alert // 提示组件
+|   |    ├─ alertErr // 错误信息提示组件
+|   |    ├─ buttons // 按钮组件
+|   |    ├─ checkbox //checkbox组件
+|   |    ├─ dataLoad // 数据加载组件
+|   |    ├─ editArea // 取样编辑组件
+|   |    ├─ fileLoading // 文件生成、保存加载组件
+|   |    ├─ load // 页面加载组件
+|   |    ├─ loading // 页面加载组件
+|   |    ├─ maekedPucture // 穿刺点绘制组件
+|   |    ├─ modal // 模态框组件
+|   |    ├─ punctureList // 穿刺点绘制组件
+|   |    ├─ systemPucture // 系统穿刺组件
+|   |    ├─ targetPucture // 靶向穿刺组件 
+|   |    ├─ titleBar // 顶部按钮组件
+|   |    └─ toast // 消息提示组件
+|   ├─ constant
+|   |    └─ ipcKey.js // ipc事件关键字定义
+|   ├─ db
+|   |    ├─ model // 数据model定义文件
+|   |    └─ service // 数据库操作文件
+|   ├─ store
+|   |    ├─ modules // store定义文件
+|   |    └─ index.js // store模块入口文件
+|   ├─ views
+|   |    ├─ editQuick // 编辑页面
+|   |    ├─ outputReport // 导出报告预览页面
+|   |    └─ reports // 报告列表文件
+|   ├─ worker
+|   |    └─ worker.js // 消息队列通信文件
+|   ├─ App.vue // UI根组件
+|   ├─ background.js // electron程序入口文件
+|   └─ main.js // Vue入口文件
+|
+|
+├─ static
+|   └─lang
+|       ├─ en
+|       |   └─ en.json    // 英文文本文件
+|       ├─ ja
+|       |   └─ ja.json    // 日文文本文件
+|       └─ zh-CN
+|           └─ zh-CN.json // 中文文本文件
+
+    
